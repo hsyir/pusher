@@ -8,7 +8,7 @@ return [
      * Set a custom dashboard configuration
      */
     'dashboard' => [
-        'port' => env('LARAVEL_WEBSOCKETS_PORT', 6001),
+        'port' => 8081,//env('LARAVEL_WEBSOCKETS_PORT', 443),
     ],
 
     /*
@@ -23,12 +23,68 @@ return [
      */
     'apps' => [
         [
-            'id' => env('PUSHER_APP_ID'),
-            'name' => env('APP_NAME'),
-            'key' => env('PUSHER_APP_KEY'),
-            'secret' => env('PUSHER_APP_SECRET'),
+            'id' => "100000",
+            'name' => "mysup_whmcs",
+            'key' => "whmcs-01",
+            'secret' => "mysup123MYSUP",
             'path' => env('PUSHER_APP_PATH'),
             'capacity' => null,
+            'forceTLS' => true,
+            'enable_client_messages' => false,
+            'enable_statistics' => true,
+        ],
+        [
+            'id' => "100001",
+            'name' => "mary-net",
+            'key' => "crm-895465",
+            'secret' => "mary123MARY",
+            'path' => env('PUSHER_APP_PATH'),
+            'capacity' => null,
+            'forceTLS' => true,
+            'enable_client_messages' => false,
+            'enable_statistics' => true,
+        ],
+        [
+            'id' => "100002",
+            'name' => "javantel",
+            'key' => "whmcs-253585",
+            'secret' => "javan123",
+            'path' => env('PUSHER_APP_PATH'),
+            'capacity' => null,
+            'forceTLS' => true,
+            'enable_client_messages' => false,
+            'enable_statistics' => true,
+        ],
+        [
+            'id' => "100003",
+            'name' => "saba-data",
+            'key' => "whmcs-98532158",
+            'secret' => "Saba98532158",
+            'path' => env('PUSHER_APP_PATH'),
+            'capacity' => null,
+            'forceTLS' => true,
+            'enable_client_messages' => false,
+            'enable_statistics' => true,
+        ],
+        [
+            'id' => "100004",
+            'name' => "avatel",
+            'key' => "crm-845321",
+            'secret' => "AvaTel89551",
+            'path' => env('PUSHER_APP_PATH'),
+            'capacity' => null,
+            'forceTLS' => true,
+            'enable_client_messages' => false,
+            'enable_statistics' => true,
+        ],
+        [
+            'id' => "100005",
+            'name' => "bursakebapevi",
+            'key' => "crm-371545",
+            'secret' => "Bursakebapevi37841",
+            'path' => env('PUSHER_APP_PATH'),
+            'capacity' => null,
+            'forceTLS' => true,
             'enable_client_messages' => false,
             'enable_statistics' => true,
         ],
@@ -116,18 +172,20 @@ return [
          * certificate chain of issuers. The private key also may be contained
          * in a separate file specified by local_pk.
          */
-        'local_cert' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_CERT', null),
+        'local_cert' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_CERT', "/home/pusher/domains/pusher.hsy.ir/cert/cert.pem"),
 
         /*
          * Path to local private key file on filesystem in case of separate files for
          * certificate (local_cert) and private key.
          */
-        'local_pk' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_PK', null),
+        'local_pk' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_PK', "/home/pusher/domains/pusher.hsy.ir/cert/key.pem"),
 
         /*
          * Passphrase for your local_cert file.
          */
         'passphrase' => env('LARAVEL_WEBSOCKETS_SSL_PASSPHRASE', null),
+
+        "verify_peer" => false,
     ],
 
     /*

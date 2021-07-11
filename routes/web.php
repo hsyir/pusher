@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/resetServer', function () {
+    \Illuminate\Support\Facades\Artisan::call("websockets:restart");
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
