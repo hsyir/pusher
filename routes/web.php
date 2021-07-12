@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    dump((new \App\Classes\WebSocketServer\ConfigAppProvider())->all());
 });
 
 Route::get('/resetServer', function () {
@@ -24,3 +24,5 @@ Route::get('/resetServer', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource("applications", \App\Http\Controllers\ApplicationController::class)->except(["store", "update"]);
+Route::match(["put", "post"], "applications", [\App\Http\Controllers\ApplicationController::class,"store"])->name("applications.store");

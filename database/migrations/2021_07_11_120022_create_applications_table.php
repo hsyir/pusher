@@ -14,11 +14,11 @@ class CreateApplicationsTable extends Migration
     public function up()
     {
         Schema::create('applications', function (Blueprint $table) {
-            $table->id();
+            $table->id()->startingValue(100000);
             $table->string("name");
             $table->string("key");
             $table->string("secret");
-            $table->string("path");
+            $table->string("path")->nullable();
             $table->integer("capacity")->nullable();
             $table->boolean("forceTLS")->default(true);
             $table->boolean("enable_client_messages")->default(false);

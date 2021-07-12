@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\WebSocketServer\ConfigAppProvider;
 use App\Models\Application;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
@@ -37,6 +39,20 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
+
+
+        $application = $request->isMethod("post")
+            ? new Application
+            : Application::find($request->application_id);
+
+        $this->validate($request, [
+            "name" => "required|unique:applications,id," . $application->id,
+            "key" => "required|unique:applications,id," . $application->id,
+            "secret" => "required|unique:applications,id," . $application->id,
+            "comment" => "required",
+        ]);
+
+
         $application = $request->isMethod("post")
             ? new Application
             : Application::find($request->application_id);
@@ -44,10 +60,20 @@ class ApplicationController extends Controller
         $application->name = $request->name;
         $application->key = $request->key;
         $application->secret = $request->secret;
+        $application->comment = $request->comment;
 
         $application->save();
-        return redirect()->back()->with(["success" => true]);
 
+        ConfigAppProvider::flushCache();
+
+        $message = $request->isMethod("post")
+            ? "New Application Created!"
+            : "Application Edited!";
+
+        if ($request->isMethod("post"))
+            return redirect()->to(route("applications.index"))->with(["success" => $message]);
+
+        return redirect()->back()->with(["success" => $message]);
 
     }
 
