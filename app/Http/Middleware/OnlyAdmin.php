@@ -20,7 +20,7 @@ class OnlyAdmin
         if (!Auth::check())
             return redirect('login');
 
-        if (Auth::user()->isAdmin())
+        if (Auth::user()->isAdmin() or Auth::user()->isSuperAdmin())
             return $next($request);
 
         abort(403);

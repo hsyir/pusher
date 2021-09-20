@@ -17,6 +17,7 @@
                                 <th>Key</th>
                                 <th>Secret</th>
                                 <th>Comment</th>
+                                <th>Creator</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -26,7 +27,8 @@
                                     <td>{{ $application->id }}</td>
                                     <td>{{ $application->key }}</td>
                                     <td>{{ $application->secret }}</td>
-                                    <td>{{ $application->comment }}</td>
+                                    <td>{!! nl2br($application->comment) !!}</td>
+                                    <td>{{ $application->user->name }}</td>
                                 </tr>
                             @endforeach
                             </tbody>

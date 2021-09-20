@@ -13,6 +13,7 @@ class User extends Authenticatable
 
     const LEVEL_USER = 1;
     const LEVEL_ADMIN = 2;
+    const LEVEL_SUPER_ADMIN = 3;
 
     /**
      * The attributes that are mass assignable.
@@ -48,5 +49,9 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->level == self::LEVEL_ADMIN;
+    }
+    public function isSuperAdmin()
+    {
+        return $this->level == self::LEVEL_SUPER_ADMIN;
     }
 }

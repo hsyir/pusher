@@ -17,15 +17,15 @@
             </div>
         </div>
     </div>
-    <div class="row">
+<!--    <div class="row">
         <div class="col-md-12">
             <div class="form-group">
                 <label for="key">Application Key</label>
                 <input type="text" name="key" id="key" value="{{ old("key",$application->key) }}" class="form-control">
             </div>
         </div>
-    </div>
-    <div class="row">
+    </div>-->
+<!--    <div class="row">
         <div class="col-md-12">
             <div class="form-group">
                 <label for="secret">Secret</label>
@@ -33,7 +33,7 @@
                        class="form-control">
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">

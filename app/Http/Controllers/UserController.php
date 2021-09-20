@@ -15,4 +15,9 @@ class UserController extends Controller
         $user->save();
         return $user;
     }
+    public function makeSuperAdmin(User $user){
+        $user->level=User::LEVEL_SUPER_ADMIN;
+        $user->save();
+        return $user;
+    }
 }

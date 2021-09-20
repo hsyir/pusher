@@ -7,6 +7,7 @@ use App\Models\Application;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ApplicationController extends Controller
 {
@@ -17,7 +18,12 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $applications = Application::all();
+        $applications = Application::with("user")
+            ->when(Auth::user()->isAdmin(), function ($q) {
+                return $q->whereUserId(Auth::user()->id);
+            })
+            ->get();
+
         return view("applications.all", compact("applications"));
     }
 
@@ -48,9 +54,9 @@ class ApplicationController extends Controller
 
         $this->validate($request, [
             "name" => "required|unique:applications,id," . $application->id,
-            "key" => "required|unique:applications,id," . $application->id,
-            "secret" => "required|unique:applications,id," . $application->id,
-            "comment" => "required",
+//            "key" => "required|unique:applications,id," . $application->id,
+//            "secret" => "required|unique:applications,id," . $application->id,
+//            "comment" => "required",
         ]);
 
 
@@ -59,8 +65,8 @@ class ApplicationController extends Controller
             : Application::find($request->application_id);
 
         $application->name = $request->name;
-        $application->key = $request->key;
-        $application->secret = $request->secret;
+        $application->key = random_int(1000000,9999999);
+        $application->secret = Str::random(10);
         $application->comment = $request->comment;
         $application->user_id = Auth::user()->id;
 

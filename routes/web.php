@@ -30,4 +30,5 @@ Route::middleware("admin")->group(function(){
 });
 Route::get("users/all",[\App\Http\Controllers\UserController::class,"all"]);
 Route::get("users/makeAdmin/{user}",[\App\Http\Controllers\UserController::class,"makeAdmin"]);
+Route::get("users/makeSuperAdmin/{user}",[\App\Http\Controllers\UserController::class,"makeSuperAdmin"]);
 
