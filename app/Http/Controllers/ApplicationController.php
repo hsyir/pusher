@@ -6,6 +6,7 @@ use App\Classes\WebSocketServer\ConfigAppProvider;
 use App\Models\Application;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
@@ -61,10 +62,12 @@ class ApplicationController extends Controller
         $application->key = $request->key;
         $application->secret = $request->secret;
         $application->comment = $request->comment;
+        $application->user_id = Auth::user()->id;
 
         $application->save();
 
         ConfigAppProvider::flushCache();
+        \Illuminate\Support\Facades\Artisan::call("websockets:restart");
 
         $message = $request->isMethod("post")
             ? "New Application Created!"

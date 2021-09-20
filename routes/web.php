@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    dump((new \App\Classes\WebSocketServer\ConfigAppProvider())->all());
+    return view("welcome");
 });
 
 Route::get('/resetServer', function () {
@@ -23,6 +23,11 @@ Route::get('/resetServer', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource("applications", \App\Http\Controllers\ApplicationController::class)->except(["store", "update"]);
-Route::match(["put", "post"], "applications", [\App\Http\Controllers\ApplicationController::class,"store"])->name("applications.store");
+Route::middleware("admin")->group(function(){
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource("applications", \App\Http\Controllers\ApplicationController::class)->except(["store", "update"]);
+    Route::match(["put", "post"], "applications", [\App\Http\Controllers\ApplicationController::class,"store"])->name("applications.store");
+});
+Route::get("users/all",[\App\Http\Controllers\UserController::class,"all"]);
+Route::get("users/makeAdmin/{user}",[\App\Http\Controllers\UserController::class,"makeAdmin"]);
+
